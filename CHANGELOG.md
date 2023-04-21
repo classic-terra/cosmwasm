@@ -27,6 +27,13 @@ and this project adheres to
 [#1629]: https://github.com/CosmWasm/cosmwasm/pull/1629
 [#1631]: https://github.com/CosmWasm/cosmwasm/pull/1631
 
+### Deprecated
+
+- cosmwasm-std: The PartialEq implementations between `Addr` and `&str`/`String`
+  are deprecated because they are not considered to be safe. In almost all cases
+  you want to convert both sides of the equation to `Addr` first. If you really
+  want to do a string comparison, use `Addr::as_str()` explicitly.
+
 ## [1.2.4] - 2023-04-17
 
 ### Fixed
