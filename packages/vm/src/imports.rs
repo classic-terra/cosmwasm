@@ -234,7 +234,7 @@ pub fn do_secp256k1_verify<A: BackendApi, S: Storage, Q: Querier>(
                 panic!("Error must not happen for this call")
             }
         },
-        |valid| if valid { 0 } else { 1 },
+        |valid| u32::from(!valid),
     ))
 }
 
@@ -295,7 +295,7 @@ pub fn do_ed25519_verify<A: BackendApi, S: Storage, Q: Querier>(
                 panic!("Error must not happen for this call")
             }
         },
-        |valid| if valid { 0 } else { 1 },
+        |valid| u32::from(!valid),
     ))
 }
 
@@ -577,7 +577,7 @@ mod tests {
         let result = do_db_read(&env, key_ptr);
         let value_ptr = result.unwrap();
         assert!(value_ptr > 0);
-        assert_eq!(force_read(&env, value_ptr as u32), VALUE1);
+        assert_eq!(force_read(&env, value_ptr), VALUE1);
     }
 
     #[test]

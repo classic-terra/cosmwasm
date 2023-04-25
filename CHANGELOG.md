@@ -6,6 +6,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.16.8] - 2023-04-25
+
+### Fixed
+
+- cosmwasm-vm: Add call depths limit
+
 ## [0.16.7] - 2022-04-06
 
 ### Added
