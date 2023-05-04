@@ -198,7 +198,6 @@ impl<A: BackendApi, S: Storage, Q: Querier> Environment<A, S, Q> {
             let func = instance.exports.get_function(name)?;
             Ok(func.clone())
         })?;
-        self.increment_call_depth()?;
         let res = func.call(args).map_err(|runtime_err| -> VmError {
             self.with_wasmer_instance::<_, Never>(|instance| {
                 let err: VmError = match get_remaining_points(instance) {
@@ -209,7 +208,6 @@ impl<A: BackendApi, S: Storage, Q: Querier> Environment<A, S, Q> {
             })
             .unwrap_err() // with_wasmer_instance can only succeed if the callback succeeds
         });
-        self.decrement_call_depth();
         res
     }
 
