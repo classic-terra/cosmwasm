@@ -14,7 +14,7 @@ use crate::errors::{VmError, VmResult};
 /// ```plain
 /// RuntimeErr { msg: "Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Maximum call depth exceeded." }
 /// ```
-const MAX_CALL_DEPTH: usize = 2;
+const MAX_CALL_DEPTH: usize = 5;
 
 /// Never can never be instantiated.
 /// Replace this with the [never primitive type](https://doc.rust-lang.org/std/primitive.never.html) when stable.
