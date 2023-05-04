@@ -241,31 +241,6 @@ impl<A: BackendApi, S: Storage, Q: Querier> Environment<A, S, Q> {
         })
     }
 
-    /// Increments the call depth by 1 and returns the new value
-    pub fn increment_call_depth(&self) -> VmResult<usize> {
-        let new = self.with_context_data_mut(|context_data| {
-            let new = context_data.call_depth + 1;
-            context_data.call_depth = new;
-            new
-        });
-        if new > MAX_CALL_DEPTH {
-            return Err(VmError::max_call_depth_exceeded());
-        }
-        Ok(new)
-    }
-
-    /// Decrements the call depth by 1 and returns the new value
-    pub fn decrement_call_depth(&self) -> usize {
-        self.with_context_data_mut(|context_data| {
-            let new = context_data
-                .call_depth
-                .checked_sub(1)
-                .expect("Call depth < 0. This is a bug.");
-            context_data.call_depth = new;
-            new
-        })
-    }
-
     pub fn with_querier_from_context<C, T>(&self, callback: C) -> VmResult<T>
     where
         C: FnOnce(&mut Q) -> VmResult<T>,
@@ -374,7 +349,6 @@ pub struct ContextData<S: Storage, Q: Querier> {
     storage: Option<S>,
     storage_readonly: bool,
     querier: Option<Q>,
-    call_depth: usize,
     /// A non-owning link to the wasmer instance
     wasmer_instance: Option<NonNull<WasmerInstance>>,
 }
@@ -385,7 +359,6 @@ impl<S: Storage, Q: Querier> ContextData<S, Q> {
             gas_state: GasState::with_limit(gas_limit),
             storage: None,
             storage_readonly: true,
-            call_depth: 0,
             querier: None,
             wasmer_instance: None,
         }
