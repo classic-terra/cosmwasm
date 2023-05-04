@@ -9,13 +9,6 @@ use wasmer_middlewares::metering::{get_remaining_points, set_remaining_points, M
 use crate::backend::{BackendApi, GasInfo, Querier, Storage};
 use crate::errors::{VmError, VmResult};
 
-/// Keep this as low as necessary to avoid deepy nested errors like this:
-///
-/// ```plain
-/// RuntimeErr { msg: "Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Error executing Wasm: Wasmer runtime error: RuntimeError: Maximum call depth exceeded." }
-/// ```
-const MAX_CALL_DEPTH: usize = 5;
-
 /// Never can never be instantiated.
 /// Replace this with the [never primitive type](https://doc.rust-lang.org/std/primitive.never.html) when stable.
 #[derive(Debug)]

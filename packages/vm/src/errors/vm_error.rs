@@ -305,13 +305,6 @@ impl VmError {
             backtrace: Backtrace::capture(),
         }
     }
-
-    pub(crate) fn max_call_depth_exceeded() -> Self {
-        VmError::MaxCallDepthExceeded {
-            #[cfg(feature = "backtraces")]
-            backtrace: Backtrace::capture(),
-        }
-    }
 }
 
 impl From<BackendError> for VmError {
