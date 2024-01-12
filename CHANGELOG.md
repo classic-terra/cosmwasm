@@ -11,6 +11,7 @@ and this project adheres to
 ### Fixed
 
 - cosmwasm-vm: Add call depths limit
+- cosmwasm-vm: Fix CWA-2023-004.
 
 ## [1.1.9] - 2022-12-06
 
